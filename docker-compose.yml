@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  saltmaster:
+    build: saltmaster
+    image: saltmaster
+    expose:
+      - "4505"
+      - "4506"
+    volumes:
+      - ./saltmaster/srv:/srv
+
+  minion01:
+    build: saltminion
+    image: saltminion
+    restart: always
+    depends_on:
+      - saltmaster
+
+  minion02:
+    build: saltminion
+    image: saltminion
+    restart: always
+    depends_on:
+      - saltmaster

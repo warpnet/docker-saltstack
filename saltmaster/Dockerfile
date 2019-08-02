@@ -1,13 +1,15 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Warpnet Beheer <beheer@warpnet.nl>
 
+# Configure TZdata
+RUN ln -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
 
 # Installation of the latest salt
 RUN sed -i 's/archive.ubuntu/nl.archive.ubuntu/' /etc/apt/sources.list
 RUN apt update
-RUN apt install -y wget curl software-properties-common vim sudo net-tools iproute iputils-ping netcat
-RUN echo 'deb http://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest xenial main' > /etc/apt/sources.list.d/saltstack.list
-RUN wget -O - https://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add -
+RUN apt install -y wget curl software-properties-common vim sudo net-tools iputils-ping netcat
+RUN wget -O - https://repo.saltstack.com/py3/ubuntu/18.04/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add -
+RUN echo 'deb http://repo.saltstack.com/py3/ubuntu/18.04/amd64/latest bionic main' > /etc/apt/sources.list.d/saltstack.list
 RUN apt update
 RUN apt dist-upgrade -y
 

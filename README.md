@@ -1,65 +1,45 @@
 # Readme
-Deze readme beschrijft de installatie van de benodigde docker images voor de salt+pizza night van Warpnet.
+This readme describes the installation of required docker images for the salt+pizza night at Warpnet.
 
-# Salt Master
-## Docker builden
-```bash
-cd saltmaster
-docker build -t saltmaster .
-```
+# Docker compose
+Before, it was required to manually build images (you still can), but we've since migrated to docker-compose.
 
-## Docker instance starten
 
-**! Let op:** Er wordt een lokaal pad verbonden aan de docker instance. Dit pad dien je aan te passen naar je eigen werkstation/configuratie.
+## Building and starting
+To get everything up and running, you can simply run the following:
 
 ```bash
-docker run --hostname saltmaster --name saltmaster -v /home/jeffrey/documents/git/warpnet/docker-salt/saltmaster/srv/salt:/srv/salt -v /home/jeffrey/documents/git/warpnet/docker-salt/saltmaster/srv/pillar:/srv/pillar -i -t saltmaster
+docker-compose up --no-deps --build
 ```
 
-
-
-
-# Salt Minions
-## Docker builden
+## Accepting the minions
+When the build and start finish, you'll need to log in to the master and accept the two minions:
 ```bash
-cd saltminion
-docker build -t saltminion .
+docker exec -it docker-saltstack_saltmaster_1 /bin/bash
+salt-key -A 
 ```
 
-## Docker instance starten
+You'll get something like the following:
 
-**! Let op:** De *saltmaster* dient te draaien voordat deze instances gestart worden
+```console
+The following keys are going to be accepted:
+Unaccepted Keys:
+8e16884eefa4
+e71c41cb40f1
+Proceed? [n/Y] y
+Key for minion 8e16884eefa4 accepted.
+Key for minion e71c41cb40f1 accepted.
+```
 
-Zoals je kunt zien, wordt voor zowel **db01** als **web01** de docker build *saltminion* gebruikt.
+## Testing the connection
+Check if salt can ping the machines:
 
-De optie `--link saltmaster:salt` zorgt ervoor dat zowel **db01** als **web01** kunnen communiceren met de **saltmaster** container.
-
-### db01
 ```bash
-docker run --hostname db01 --name db01 --link saltmaster:salt -i -t saltminion
+salt \* test.ping
+e71c41cb40f1:
+    True
+8e16884eefa4:
+    True
 ```
 
-### web01
-```bash
-docker run --hostname web01 --name web01  --link saltmaster:salt -i -t saltminion
-```
-
-# Shell openen
-De beste manier om een shell te openen binnen je docker instance, is door het volgende commando te gebruiken:
-
-## saltmaster
-```bash
-docker exec -it "saltmaster" bash
-```
-
-## db01
-```bash
-docker exec -it "db01" bash
-```
-
-## web01
-```bash
-docker exec -it "web01" bash
-```
-
-Dit commando gebruiken, in plaats van ```docker attach```, zorgt ervoor dat je docker instance niet stopt op het moment dat je je shell sluit.
+Now you're all ready to get started!
