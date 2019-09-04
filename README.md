@@ -1,5 +1,5 @@
 # Readme
-This readme describes the installation of required docker images for the salt+pizza night at Warpnet.
+This readme describes the installation of required docker images for the SaltStack introduction at Warpnet.
 
 # Docker compose
 Before, it was required to manually build images (you still can), but we've since migrated to docker-compose.
