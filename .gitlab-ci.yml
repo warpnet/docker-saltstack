@@ -3,4 +3,4 @@ lint dockerfile:
   image: hadolint/hadolint:latest-debian
   stage: test
   script:
-    - for Dockerfile in $(find . -type f -name 'Dockerfile' 2>/dev/null -print0); do hadolint $Dockerfile; done
+    - for Dockerfile in $(find . -type f -name 'Dockerfile' 2>/dev/null; do hadolint $Dockerfile; done
