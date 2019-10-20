@@ -1,4 +1,5 @@
 FROM ubuntu:18.04
+LABEL maintainer="info@warpnet.nl"
 
 # Set shell option -o before running shell commands with pipes in them
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
