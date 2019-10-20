@@ -16,7 +16,9 @@ RUN apt-get update
 RUN apt-get dist-upgrade -y
 
 # Install the salt master
-RUN apt install salt-minion -y
+RUN apt-get install salt-minion -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 # Add run file
 COPY run_saltminion.sh /usr/local/bin/run_saltminion.sh

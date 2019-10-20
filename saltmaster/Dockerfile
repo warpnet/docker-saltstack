@@ -16,7 +16,9 @@ RUN apt-get update
 RUN apt-get dist-upgrade -y
 
 # Install the salt master
-RUN apt install salt-master -y
+RUN apt-get install salt-master -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 # Mount /srv/salt and /srv/pillar
 VOLUME ["/srv/salt","/srv/pillar"]
