@@ -9,7 +9,7 @@ RUN ln -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
 # Installation of the latest salt
 RUN sed -i 's/archive.ubuntu/nl.archive.ubuntu/' /etc/apt/sources.list
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends wget curl software-properties-common vim sudo net-tools iputils-ping netcat &&
+RUN apt-get install -y --no-install-recommends wget curl software-properties-common vim sudo net-tools iputils-ping netcat \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 RUN wget -O - https://repo.saltstack.com/py3/ubuntu/18.04/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add -
