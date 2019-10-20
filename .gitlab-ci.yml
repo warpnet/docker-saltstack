@@ -1,6 +1,15 @@
+stages:
+  - test
+
+variables:
+  # When using dind, it's wise to use the overlayfs driver for
+  # improved performance.
+  DOCKER_DRIVER: overlay2
+
 # Use hadolint to test all Dockerfiles in this repository
 lint dockerfile:
   image: hadolint/hadolint:latest-debian
   stage: test
   script:
-    - for Dockerfile in $(find . -type f -name 'Dockerfile' 2>/dev/null); do hadolint $Dockerfile; done
+    - hadolint ./saltmaster/Dockerfile
+    - hadolint ./saltminion/Dockerfile
