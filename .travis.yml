@@ -16,7 +16,7 @@ jobs:
       install:
       - npm install -g markdownlint-cli
       script:
-      - markdownlint *.md ; markdownlint */*.md
+      - find . -type f -name '*.md' | xargs markdownlint -
     - stage: dockerlint
       # Environment data
       env:
