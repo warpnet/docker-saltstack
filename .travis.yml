@@ -1,10 +1,6 @@
 # Use container-based infrastructure for quicker build start-up
 sudo: false
 
-# Environment data
-env:
-# Path to 'hadolint' binary
-HADOLINT: "${HOME}/hadolint"
 
 # Define stages
 stages:
@@ -22,6 +18,10 @@ jobs:
       script:
       - markdownlint *.md ; markdownlint */*.md
     - stage: dockerlint
+      # Environment data
+      env:
+        # Path to 'hadolint' binary
+        HADOLINT: "${HOME}/hadolint"
       # Use generic image to cut start-up time
       language: generic
       install:
