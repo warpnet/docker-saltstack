@@ -1,6 +1,6 @@
-# Readme
-
 [![Travis (.org)](https://img.shields.io/travis/warpnet/docker-saltstack/master.svg?style=for-the-badge)](https://travis-ci.org/warpnet/docker-saltstack)
+
+# Readme
 
 This readme describes the installation of required docker images for the SaltStack introduction at Warpnet.
 
