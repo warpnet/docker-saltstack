@@ -8,7 +8,8 @@ services:
       - "4505"
       - "4506"
     volumes:
-      - ./saltmaster/srv:/srv
+      - ./saltmaster/srv/pillar:/srv/pillar
+      - ./saltmaster/srv/salt:/srv/salt
 
   minion01:
     build: saltminion
